@@ -32,3 +32,9 @@ jobs:
           tag="v$(date +"%y.%m.%d.%H%M%S")"
           sed -i "s|\(VERSION = \)'.*'|\1'$tag'|" config/initializers/application_version.rb
           echo "tag=$tag" >> $GITHUB_OUTPUT
+
+      - uses: ncipollo/release-action@v1
+        with:
+          draft: true
+          generateReleaseNotes: true
+          tag: ${{ steps.bump-version.outputs.tag }}
